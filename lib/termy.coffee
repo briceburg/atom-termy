@@ -1,11 +1,12 @@
 TermyView = require './termy-view'
 {CompositeDisposable} = require 'atom'
 
-path = require('path')
 url = require('url')
+HashMap = require('hashmap')
 
 module.exports = Termy =
   subscriptions: null
+  termyMap: new HashMap()
 
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
@@ -16,32 +17,34 @@ module.exports = Termy =
     # register termy opener, respond to termy://<file>?location=<location> uris
     atom.workspace.addOpener @opener
 
+    #@emitter = new Emitter
+
+
   deactivate: ->
+    @termyMap.forEach (value, key) ->
+      value.destroy()
+
     @subscriptions.dispose()
-    @termyView.destroy()
+    @emitter.dispose()
+
 
   open: (location) ->
-    file = atom.workspace.getActivePaneItem()?.buffer.file?.path
+    file = atom.workspace.getActivePaneItem()?.buffer?.file?.path
     return atom.workspace.open('termy://' + file + '?location=' + location) if file
-    console.log('termy :: unable to determine filePath')
 
   opener: (uri) ->
     return unless uri.match(/^termy:/)
 
     uri = url.parse(uri,true)
-    cwd = path.dirname(uri.pathname)
+    termy = Termy.findOrCreateView(uri.pathname)
+    pane = if uri.query.location is "right" then atom.workspace.getActivePane().splitRight() else
+      atom.workspace.getActivePane().splitDown()
 
-    termy = new TermyView(cwd)
+    termy.getPane()?.moveItemToPane(termy, pane) || pane.addItem(termy)
+    termy.setPane(pane)
 
-    #console.log(atom.workspace.getActivePaneItem())
-    atom.workspace.getActivePane().splitRight({items: [termy]})
+  findOrCreateView: (filePath) ->
 
-    ###
-
-    switch uri.query.location
-      when "right" then atom.workspace.addRightPanel(item: termy.getElement())
-      else atom.workspace.addBottomPanel(item: termy.getElement())
-    ###
-
-    # refuse to open a new editor...
-    false
+    termy = @termyMap.get(filePath) || new TermyView(filePath)
+    @termyMap.set(filePath, termy)
+    termy

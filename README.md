@@ -1,6 +1,6 @@
 # termy
 
-spawn a pty.js tab with a cwd of file's pwd || project root
+spawn a pty.js pane to the right or below the file you're editing. relativizes the cwd.
 
 ### requirements
 
@@ -10,9 +10,10 @@ spawn a pty.js tab with a cwd of file's pwd || project root
 
 key | action
 --- | ------
-`ctrl-alt-<enter>` | open terminal in tab. sets the cwd to the current file's pwd, or the project root if no file is open.
+`ctrl-alt-enter` | spawn terminal in right split
+`ctrl-alt-space` | spawn terminal in bottom split
 
-#### warnings
+##### warnings
 
 * my first coffeescript blitherings
-* my first atom package
+* my first atom dealings
