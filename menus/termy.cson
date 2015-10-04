@@ -1,0 +1,30 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+
+###
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Open termy'
+      'command': 'termy:open'
+    }
+  ]
+###
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Termy'
+      'submenu': [
+        {
+          'label': 'Open Right'
+          'command': 'termy:open-right'
+        }
+        {
+          'label': 'Open Below'
+          'command': 'termy:open-below'
+        }
+      ]
+    ]
+  }
+]

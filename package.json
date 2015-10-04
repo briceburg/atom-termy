@@ -1,0 +1,14 @@
+{
+  "name": "termy",
+  "main": "./lib/termy",
+  "version": "0.0.0",
+  "description": "spawn a pty.js pane to the right or below your file",
+  "keywords": [ "terminal", "term", "shell", "tty", "pty" ],
+  "repository": "https://github.com/briceburg/atom-termy",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
