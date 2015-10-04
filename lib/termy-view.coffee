@@ -1,6 +1,12 @@
+path = require('path')
+
 module.exports =
 class TermyView
-  constructor: (cwd) ->
+  constructor: (filePath) ->
+    @title = path.basename(filePath) + ' termy'
+    @cwd = path.dirname(filePath)
+    @pane = null
+
     # Create root element
     @element = document.createElement('div')
     @element.classList.add('termy')
@@ -19,4 +25,10 @@ class TermyView
     @element
 
   getTitle: ->
-    "aaaa"
+    @title
+
+  getPane: ->
+    @pane
+
+  setPane: (pane) ->
+    @pane = pane
