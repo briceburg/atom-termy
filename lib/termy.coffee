@@ -15,15 +15,11 @@ module.exports = Termy =
     @subscriptions.add atom.commands.add 'atom-workspace', 'termy:open-below': => @open('below')
 
     # register termy opener, respond to termy://<file>?location=<location> uris
-    atom.workspace.addOpener @opener
-
-    #@emitter = new Emitter
-
+    atom.workspace.addOpener @opener.bind(@)
 
   deactivate: ->
     @termyMap.forEach (value, key) ->
       value.destroy()
-
     @subscriptions.dispose()
     @emitter.dispose()
 
@@ -36,15 +32,11 @@ module.exports = Termy =
     return unless uri.match(/^termy:/)
 
     uri = url.parse(uri,true)
-    termy = Termy.findOrCreateView(uri.pathname)
+
+    termy = @termyMap.get(uri.pathname) || new TermyView(uri.pathname)
+    @termyMap.set(uri.pathname, termy)
+
     pane = if uri.query.location is "right" then atom.workspace.getActivePane().splitRight() else
       atom.workspace.getActivePane().splitDown()
 
-    termy.getPane()?.moveItemToPane(termy, pane) || pane.addItem(termy)
     termy.setPane(pane)
-
-  findOrCreateView: (filePath) ->
-
-    termy = @termyMap.get(filePath) || new TermyView(filePath)
-    @termyMap.set(filePath, termy)
-    termy

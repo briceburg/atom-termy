@@ -2,8 +2,7 @@ path = require('path')
 ptyjs = require('pty.js')
 termjs = require('term.js')
 
-module.exports =
-class TermyView
+module.exports = TermyView = class TermyView
   constructor: (filePath) ->
     @title = path.basename(filePath) + ' termy'
     @cwd = path.dirname(filePath)
@@ -13,9 +12,7 @@ class TermyView
     @element = document.createElement('div')
     @element.classList.add('termy')
 
-  init: ->
-    return if @pty
-
+  spawnTerm: ->
     @pty = ptyjs.spawn(@getShell(), [],
       name: 'xterm-256color'
       cols: 80
@@ -38,7 +35,8 @@ class TermyView
     @term.open(@element)
     @pty.pipe(@term)
 
-  # Tear down any state and detach
+    return
+
   destroy: ->
     @pty?.destroy()
     @term?.destroy()
@@ -52,14 +50,16 @@ class TermyView
   getTitle: ->
     @title
 
-  getPane: ->
-    @pane
+  setPane: (pane) ->
+    if @pane
+      @pane.moveItemToPane(@, pane)
+    else
+      pane.addItem(@)
+      @spawnTerm()
+
+    @pane = pane
 
   getShell: ->
     if process.platform is 'win32' then path.resolve(
       process.env.SystemRoot, 'WindowsPowerShell', 'v1.0', 'powershell.exe')
     else process.env.SHELL
-
-  setPane: (pane) ->
-    @pane = pane
-    @init()
