@@ -17,9 +17,16 @@ module.exports = Termy =
     # register termy opener, respond to termy://<file>?location=<location> uris
     atom.workspace.addOpener @opener
 
+    #@emitter = new Emitter
+
+
   deactivate: ->
+    @termyMap.forEach (value, key) ->
+      value.destroy()
+
     @subscriptions.dispose()
-    @termyView.destroy()
+    @emitter.dispose()
+
 
   open: (location) ->
     file = atom.workspace.getActivePaneItem()?.buffer?.file?.path
