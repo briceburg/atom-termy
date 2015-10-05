@@ -2,7 +2,7 @@
   "name": "termy",
   "main": "./lib/termy",
   "version": "0.0.0",
-  "description": "spawn a pty.js pane to the right or below your file",
+  "description": "spawn a terminal with a relativized cwd below or to the right of the active file",
   "keywords": [ "terminal", "term", "shell", "tty", "pty" ],
   "repository": "https://github.com/briceburg/atom-termy",
   "license": "MIT",

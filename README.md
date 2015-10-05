@@ -1,6 +1,8 @@
 # termy
 
-spawn a pty.js pane to the right or below the file you're editing. relativizes the cwd.
+spawn a terminal with a relativized cwd below or to the right of the active file
+
+![screenshot](https://raw.githubusercontent.com/briceburg/atom-termy/master/resources/atom-termy.gif)
 
 ### requirements
 
