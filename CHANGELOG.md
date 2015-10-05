@@ -1,1 +1,1 @@
-## 0.0.0 - prerelease
+## 0.1.0 - termy awakens
