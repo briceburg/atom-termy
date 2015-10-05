@@ -1,9 +1,15 @@
 {
   "name": "termy",
   "main": "./lib/termy",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "spawn a terminal with a relativized cwd below or to the right of the active file",
-  "keywords": [ "terminal", "term", "shell", "tty", "pty" ],
+  "keywords": [
+    "terminal",
+    "term",
+    "shell",
+    "tty",
+    "pty"
+  ],
   "repository": "https://github.com/briceburg/atom-termy",
   "license": "MIT",
   "engines": {
