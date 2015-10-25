@@ -1,7 +1,7 @@
 {
   "name": "termy",
   "main": "./lib/termy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "spawn a terminal with a relativized cwd below or to the right of the active file",
   "keywords": [
     "terminal",
