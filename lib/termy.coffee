@@ -2,11 +2,10 @@ TermyView = require './termy-view'
 {CompositeDisposable} = require 'atom'
 
 url = require('url')
-HashMap = require('hashmap')
 
 module.exports = Termy =
   subscriptions: null
-  termyMap: new HashMap()
+  termyMap: new Map()
 
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
@@ -18,8 +17,7 @@ module.exports = Termy =
     atom.workspace.addOpener @opener.bind(@)
 
   deactivate: ->
-    @termyMap.forEach (value, key) ->
-      value.destroy()
+    @termyMap.clear()
     @subscriptions.dispose()
     @emitter.dispose()
 

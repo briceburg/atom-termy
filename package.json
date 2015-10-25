@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "pty.js": "^0.3.0",
-    "term.js": "^0.0.7",
-    "hashmap": "^2.0.3"
+    "term.js": "^0.0.7"
   }
 }
